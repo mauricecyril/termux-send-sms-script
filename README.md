@@ -7,21 +7,64 @@ A quick script to send an SMS message to a list of recipients using Termux-API a
 1. Once installed, run Termux
 
 1. Update Apt
-'''bash
+```ash
 apt-get update
-'''
+```
 
 1. Install Termux-API
-'''bash
+```bash
 apt-get install termux-api
-'''
+```
+
+1. Test the SMS send command in Termux and allow Android to access the SMS functions on the phone
+```bash
+termux-sms-send -n [replace with phone number] [SMS message]
+```
 
 1. Install Python
-'''bash
+```bash
 apt-get install python
-'''
+```
 
 1. Install Nano text editor
-'''bash
+```bash
 apt-get install nano
-'''
+```
+
+1. Create the python Script
+```bash
+nano sendsms.py
+```
+
+1. Write the script
+```python
+import subprocess
+
+# Add Entries to the address book dictionary. Key = Name, Value = Phone Number
+addressbook = {"Name1" : "+15551234567"
+                "Name2" : "+15551234568"
+                }
+                
+# Loop through the addressbook dictionary and send each number the message
+for (k,v) in addressbook.items():
+    
+    # SMS Message Template (try to keep to within 150 characters)
+    smsmessage = str("Hi " + k + " your phone number is " + v)
+    
+    # Use Subprocess Run Function to send SMS
+    subprocess.run(["termux-sms-send", "-n", phonenumber, smsmessage])
+    
+    # Print confirmation of each send
+    print("Sent Message to " + k + " via " + v)
+
+
+# Print end of process message
+print("Message sending complete")
+```
+
+The termux terminal will display the following
+```bash
+Sent Message to Name1 via +15551234567
+Sent Message to Name2 via +15551234568
+Message sending complete
+```
