@@ -62,6 +62,13 @@ for (k,v) in addressbook.items():
 print("Message sending complete")
 ```
 
+1. Save the python script and exit nano by pressing CTRL+X in Nano
+
+1. Run the script in Termux
+```bash
+python sendsms.py
+```
+
 The termux terminal will display the following
 ```bash
 Sent Message to Name1 via +15551234567
